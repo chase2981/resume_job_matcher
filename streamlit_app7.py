@@ -13,6 +13,14 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 nltk.download(['stopwords','wordnet'])
 
+import subprocess
+
+@st.cache_resource
+def download_en_core_web_sm():
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+
+download_en_core_web_sm()
+
 custom_stopwords = ["city", "state"]
 
 # Function to load the OpenAI API key
