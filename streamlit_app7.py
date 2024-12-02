@@ -229,14 +229,17 @@ def main():
         if resume_input.strip():
             # Generate OpenAI embeddings for the input resume
             st.write("Generating embeddings for your resume...")
+            # resume_embedding = generate_openai_embedding(clean_resume(resume_input))
             resume_embedding = generate_openai_embedding(resume_input)
+
+            # resume_embedding = generate_openai_embedding(clean_resume(resume_input))
 
             if resume_embedding is not None:
                 # Match input resume with job postings
                 st.write("Matching your resume to job postings...")
                 job_embeddings = np.vstack(jobs['description_embedding'])  # Stack job embeddings into 2D array
                 job_titles = jobs['detail_title'].tolist()
-                job_descriptions = jobs['cleaned_description'].tolist()
+                job_descriptions = jobs['detail_description'].tolist()
                 job_urls = jobs['url'].tolist()  # Assuming 'job_url' column exists in the CSV
 
                 top_matches = find_top_matches(resume_embedding, job_embeddings, job_titles, job_descriptions, job_urls)
