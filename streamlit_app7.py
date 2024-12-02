@@ -39,17 +39,18 @@ def load_openai_api_key():
 # Load the API key
 openai.api_key = load_openai_api_key()
 
-# # Load SpaCy model
-# try:
-#     # Try to load the model
-#     nlp = spacy.load("en_core_web_sm")
-# except OSError:
-#     # Download the model if not available
-#     spacy.cli.download("en_core_web_sm")
-#     nlp = spacy.load("en_core_web_sm")
-
 # Load SpaCy model
-nlp = spacy.load("en_core_web_sm")
+try:
+    # Try to load the model
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    # Download the model if not available
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
+# # Load SpaCy model
+# spacy.cli.download("en_core_web_sm")
+# nlp = spacy.load("en_core_web_sm")
 
 # Load job postings with precomputed embeddings
 @st.cache_data
