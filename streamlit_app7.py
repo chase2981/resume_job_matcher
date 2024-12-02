@@ -1,4 +1,5 @@
-# import os
+import os
+from pathlib import Path
 import re
 import streamlit as st
 import pandas as pd
@@ -34,14 +35,29 @@ def load_openai_api_key():
 # Load the API key
 openai.api_key = load_openai_api_key()
 
-# Load SpaCy model
-try:
-    # Try to load the model
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    # Download the model if not available
-    spacy.cli.download("en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
+
+# Define the local directory for the SpaCy model
+MODEL_DIR = Path("models")
+MODEL_DIR.mkdir(exist_ok=True)
+
+MODEL_NAME = "en_core_web_sm"
+LOCAL_MODEL_PATH = MODEL_DIR / MODEL_NAME
+
+# Check if the model is already downloaded
+if not LOCAL_MODEL_PATH.exists():
+    spacy.cli.download(MODEL_NAME, path=str(MODEL_DIR))
+
+# Load the model from the local directory
+nlp = spacy.load(str(LOCAL_MODEL_PATH))
+
+# # Load SpaCy model
+# try:
+#     # Try to load the model
+#     nlp = spacy.load("en_core_web_sm")
+# except OSError:
+#     # Download the model if not available
+#     spacy.cli.download("en_core_web_sm")
+#     nlp = spacy.load("en_core_web_sm")
 
 # Load job postings with precomputed embeddings
 @st.cache_data
