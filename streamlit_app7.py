@@ -15,11 +15,11 @@ nltk.download(['stopwords','wordnet'])
 
 import subprocess
 
-@st.cache_resource
-def download_en_core_web_sm():
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+# @st.cache_resource
+# def download_en_core_web_sm():
+#     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
 
-download_en_core_web_sm()
+# download_en_core_web_sm()
 
 custom_stopwords = ["city", "state"]
 
@@ -42,7 +42,13 @@ openai.api_key = load_openai_api_key()
 
 
 # Load SpaCy model
-nlp = spacy.load("en_core_web_sm")
+try:
+    # Try to load the model
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    # Download the model if not available
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 # Load job postings with precomputed embeddings
 @st.cache_data
