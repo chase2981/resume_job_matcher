@@ -1,11 +1,9 @@
 import os
-from pathlib import Path
 import re
 import streamlit as st
 import pandas as pd
 import spacy
 from spacy import displacy
-import spacy.cli
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import openai
@@ -17,17 +15,15 @@ nltk.download(['stopwords','wordnet'])
 
 custom_stopwords = ["city", "state"]
 
-nlp = None
-
 # Function to load the OpenAI API key
 def load_openai_api_key():
     # Check if the API key exists in Streamlit secrets
     if "openai" in st.secrets and "api_key" in st.secrets["openai"]:
         return st.secrets["openai"]["api_key"]
-    # # Fallback to environment variable
-    # api_key = os.getenv("OPENAI_API_KEY")
-    # if api_key:
-    #     return api_key
+    # Fallback to environment variable
+    api_key = os.getenv("OPENAI_API_KEY")
+    if api_key:
+        return api_key
     # Raise an error if the key is not found
     raise ValueError("OpenAI API key is not set. Add it to Streamlit secrets or as an environment variable.")
 
@@ -36,28 +32,9 @@ def load_openai_api_key():
 openai.api_key = load_openai_api_key()
 
 
-# Define the local directory for the SpaCy model
-MODEL_DIR = Path("models")
-MODEL_DIR.mkdir(exist_ok=True)
 
-MODEL_NAME = "en_core_web_sm"
-LOCAL_MODEL_PATH = MODEL_DIR / MODEL_NAME
-
-# Check if the model is already downloaded
-if not LOCAL_MODEL_PATH.exists():
-    spacy.cli.download(MODEL_NAME, path=str(MODEL_DIR))
-
-# Load the model from the local directory
-nlp = spacy.load(str(LOCAL_MODEL_PATH))
-
-# # Load SpaCy model
-# try:
-#     # Try to load the model
-#     nlp = spacy.load("en_core_web_sm")
-# except OSError:
-#     # Download the model if not available
-#     spacy.cli.download("en_core_web_sm")
-#     nlp = spacy.load("en_core_web_sm")
+# Load SpaCy model
+nlp = spacy.load("en_core_web_sm")
 
 # Load job postings with precomputed embeddings
 @st.cache_data
