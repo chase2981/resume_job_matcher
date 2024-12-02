@@ -5,6 +5,6 @@ pandas
 spacy
 scikit-learn
 numpy
-openai
+openai==0.27.2
 nltk
 spacy[transformers]
