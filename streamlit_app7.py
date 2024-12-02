@@ -222,8 +222,8 @@ def main():
 
     # Input resume
     st.subheader("Paste Your Resume")
-    # resume_input = st.text_area("Paste your resume here", height=300)
-    resume_input = clean_resume(st.text_area("Paste your resume here", height=300))
+    resume_input = st.text_area("Paste your resume here", height=300)
+    # resume_input = clean_resume(st.text_area("Paste your resume here", height=300))
 
     if st.button("Analyze Resume"):
         if resume_input.strip():
