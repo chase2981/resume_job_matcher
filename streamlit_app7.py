@@ -39,11 +39,29 @@ def load_openai_api_key():
 # Load the API key
 openai.api_key = load_openai_api_key()
 
-try:
-    import en_core_web_sm
-except ImportError:
-    # Download the model if it's not available
-    spacy.cli.download("en_core_web_sm")
+# import spacy.cli
+# from pathlib import Path
+
+# # Define a local directory for SpaCy models
+# MODEL_DIR = Path("spacy_models")
+# MODEL_DIR.mkdir(exist_ok=True)
+
+# MODEL_NAME = "en_core_web_sm"
+# LOCAL_MODEL_PATH = MODEL_DIR / MODEL_NAME
+
+# # Check if the model is already downloaded
+# if not (LOCAL_MODEL_PATH / "meta.json").exists():
+#     # Download the model to the local directory
+#     spacy.cli.download(MODEL_NAME, dir=str(MODEL_DIR))
+
+# # Load the model from the local directory
+# nlp = spacy.load(str(LOCAL_MODEL_PATH))
+
+# try:
+#     import en_core_web_sm
+# except ImportError:
+#     # Download the model if it's not available
+#     spacy.cli.download("en_core_web_sm")
 
 # # Load SpaCy model
 # try:
@@ -53,7 +71,11 @@ except ImportError:
 #     # Download the model if not available
 #     spacy.cli.download("en_core_web_sm")
 
-nlp = spacy.load("en_core_web_sm")
+# nlp = spacy.load("en_core_web_sm")
+
+# nlp.to_disk('./en_core_web_sm/')
+
+nlp = spacy.load('./en_core_web_sm/')
 
 # # Load SpaCy model
 # spacy.cli.download("en_core_web_sm")
