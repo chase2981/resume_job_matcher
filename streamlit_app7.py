@@ -1,4 +1,4 @@
-import os
+# import os
 import re
 import streamlit as st
 import pandas as pd
@@ -20,10 +20,10 @@ def load_openai_api_key():
     # Check if the API key exists in Streamlit secrets
     if "openai" in st.secrets and "api_key" in st.secrets["openai"]:
         return st.secrets["openai"]["api_key"]
-    # Fallback to environment variable
-    api_key = os.getenv("OPENAI_API_KEY")
-    if api_key:
-        return api_key
+    # # Fallback to environment variable
+    # api_key = os.getenv("OPENAI_API_KEY")
+    # if api_key:
+    #     return api_key
     # Raise an error if the key is not found
     raise ValueError("OpenAI API key is not set. Add it to Streamlit secrets or as an environment variable.")
 
