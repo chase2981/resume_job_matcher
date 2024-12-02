@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import spacy
 from spacy import displacy
+import spacy.cli
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import openai
@@ -14,6 +15,8 @@ from nltk.stem import WordNetLemmatizer
 nltk.download(['stopwords','wordnet'])
 
 custom_stopwords = ["city", "state"]
+
+nlp = None
 
 # Function to load the OpenAI API key
 def load_openai_api_key():
@@ -32,7 +35,13 @@ def load_openai_api_key():
 openai.api_key = load_openai_api_key()
 
 # Load SpaCy model
-nlp = spacy.load("en_core_web_sm")
+try:
+    # Try to load the model
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    # Download the model if not available
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 # Load job postings with precomputed embeddings
 @st.cache_data
