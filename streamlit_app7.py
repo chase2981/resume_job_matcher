@@ -71,11 +71,15 @@ openai.api_key = load_openai_api_key()
 #     # Download the model if not available
 #     spacy.cli.download("en_core_web_sm")
 
-# nlp = spacy.load("en_core_web_sm")
+# nlp = spacy.load("en_core_web_lg")
 
-# nlp.to_disk('./en_core_web_sm/')
+# nlp.to_disk('./en_core_web_lg/')
 
 nlp = spacy.load('./en_core_web_sm/')
+
+skill_pattern_path = "./jz_skill_patterns.jsonl"
+ruler = nlp.add_pipe("entity_ruler")
+ruler.from_disk(skill_pattern_path)
 
 # # Load SpaCy model
 # spacy.cli.download("en_core_web_sm")
