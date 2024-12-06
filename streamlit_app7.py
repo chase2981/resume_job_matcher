@@ -129,6 +129,11 @@ def highlight_skills_with_displacy(text):
         "colors": colors,
     }
     html = displacy.render(doc, style="ent", options=options)
+    try:
+        html += displacy.render(doc[0:10], style="dep", jupyter=False, options={"distance": 90})
+    except Exception as e:
+        print(str(e))
+        pass
     return html
 
 # Compute similarity and find top job matches
