@@ -88,7 +88,7 @@ ruler.from_disk(skill_pattern_path)
 # Load job postings with precomputed embeddings
 @st.cache_data
 def load_data():
-    jobs = pd.read_csv("job_postings_with_embeddings_openai.csv")
+    jobs = pd.read_csv("job_postings_with_embeddings_openai-latest.csv")
     resumes = pd.read_csv("resumes_with_updated_summaries.csv")  # Load corpus of resumes
     jobs['description_embedding'] = jobs['description_embedding'].apply(ast.literal_eval).apply(np.array)
     return jobs, resumes
