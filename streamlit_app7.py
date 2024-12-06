@@ -132,7 +132,7 @@ def highlight_skills_with_displacy(text):
     return html
 
 # Compute similarity and find top job matches
-def find_top_matches(resume_embedding, job_embeddings, job_titles, job_descriptions, job_urls, top_n=5):
+def find_top_matches(resume_embedding, job_embeddings, job_titles, job_descriptions, job_urls, top_n=10):
     # Ensure resume embedding is a 2D array
     resume_embedding = resume_embedding.reshape(1, -1)  # Reshape to (1, -1)
     similarities = cosine_similarity(resume_embedding, job_embeddings)[0]  # Calculate similarities
