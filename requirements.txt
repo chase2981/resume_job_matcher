@@ -8,3 +8,6 @@ numpy
 openai==0.27.2
 nltk
 spacy[transformers]
+docx
+mammoth
+textract

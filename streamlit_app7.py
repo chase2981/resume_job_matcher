@@ -227,10 +227,15 @@ def main():
     # Input resume
     st.subheader("Paste Your Resume")
     resume_input = st.text_area("Paste your resume here", height=300)
+
+    st.subheader("Or Upload Your Resume")
+    resume_file = st.file_uploader("Upload Resumes CSV", type=["doc", "docx"])
     # resume_input = clean_resume(st.text_area("Paste your resume here", height=300))
 
     if st.button("Analyze Resume"):
-        if resume_input.strip():
+        if resume_input.strip() or resume_file:
+            resume_input = resume_input if resume_input.strip() is not None else clean_resume(resume_file)
+
             # Generate OpenAI embeddings for the input resume
             st.write("Generating embeddings for your resume...")
             # resume_embedding = generate_openai_embedding(clean_resume(resume_input))
