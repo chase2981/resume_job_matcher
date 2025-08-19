@@ -185,7 +185,7 @@ def summarize_with_gpt(extracted_info, job_titles=None):
                 {"role": "system", "content": "You are a helpful assistant that summarizes resumes for recruiters."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=150,
+            max_tokens=300,
             temperature=0.7
         )
         return response['choices'][0]['message']['content'].strip()
