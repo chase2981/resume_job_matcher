@@ -15,12 +15,6 @@ nltk.download(['stopwords','wordnet'])
 
 import subprocess
 
-# @st.cache_resource
-# def download_en_core_web_sm():
-#     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-
-# download_en_core_web_sm()
-
 custom_stopwords = ["city", "state"]
 
 # Function to load the OpenAI API key
@@ -39,40 +33,8 @@ def load_openai_api_key():
 # Load the API key
 openai.api_key = load_openai_api_key()
 
-# import spacy.cli
-# from pathlib import Path
-
-# # Define a local directory for SpaCy models
-# MODEL_DIR = Path("spacy_models")
-# MODEL_DIR.mkdir(exist_ok=True)
-
-# MODEL_NAME = "en_core_web_sm"
-# LOCAL_MODEL_PATH = MODEL_DIR / MODEL_NAME
-
-# # Check if the model is already downloaded
-# if not (LOCAL_MODEL_PATH / "meta.json").exists():
-#     # Download the model to the local directory
-#     spacy.cli.download(MODEL_NAME, dir=str(MODEL_DIR))
-
-# # Load the model from the local directory
-# nlp = spacy.load(str(LOCAL_MODEL_PATH))
-
-# try:
-#     import en_core_web_sm
-# except ImportError:
-#     # Download the model if it's not available
-#     spacy.cli.download("en_core_web_sm")
-
 # # Load SpaCy model
-# try:
-#     # Try to load the model
-#     nlp = spacy.load("en_core_web_sm")
-# except OSError:
-#     # Download the model if not available
-#     spacy.cli.download("en_core_web_sm")
-
 # nlp = spacy.load("en_core_web_lg")
-
 # nlp.to_disk('./en_core_web_lg/')
 
 nlp = spacy.load('./en_core_web_sm/')
@@ -81,9 +43,6 @@ skill_pattern_path = "./jz_skill_patterns.jsonl"
 ruler = nlp.add_pipe("entity_ruler")
 ruler.from_disk(skill_pattern_path)
 
-# # Load SpaCy model
-# spacy.cli.download("en_core_web_sm")
-# nlp = spacy.load("en_core_web_sm")
 
 # Load job postings with precomputed embeddings
 @st.cache_data
